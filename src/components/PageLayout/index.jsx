@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Sidebar from '../SideBar';
+import Main from '../Main';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -16,15 +17,10 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const PageLayout = () => {
   return (
-    <Box sx={{ flexGrow: 1, height: '10vh' }}>
-    <Grid container spacing={1}>
-      <Grid item xs={2.78}>
-        <Item><Sidebar/></Item>
-      </Grid>
-      <Grid item xs={9.22}>
-        <Item>xs=4</Item>
-      </Grid>
-    </Grid>
+    <Box sx={{ flexGrow: 1, width:'100%', display: 'flex', flexDirection: "row"  }}>
+    
+     <Sidebar/>
+    <Main/> 
   </Box>
   )
 }
