@@ -11,7 +11,8 @@ export const apiCall = async (
   email,
   password,
   page,
- callBack
+ callBack,
+ data
 
 ) => {
   return await kisiClient
@@ -34,8 +35,18 @@ export const apiCall = async (
             callBack(error)
           })
         :
+        requestType === "DELETE" ? 
+
+        kisiClient
+          .delete(`${url}`)
+          .then(res => callBack(res))
+          .catch((error) => {
+            callBack(error)
+          })
+          :
+          // console.log(data)
       kisiClient
-          .post(`${url}`)
+          .post(`${url}`, {group_lock:data})
           .then(res => callBack(res))
           .catch((error) => {
             callBack(error)

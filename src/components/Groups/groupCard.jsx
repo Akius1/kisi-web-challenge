@@ -1,13 +1,39 @@
+import React  from "react";
+import "./group.css";
+
 import { Typography, Box } from "@material-ui/core";
 import GroupIcon from "@material-ui/icons/Group";
 
-// import GroupIcon from "@material-ui/icons/";
-import React from "react";
-import "./group.css";
+import { connect } from "react-redux";
+import { doorAction } from "../../store/actions/doors.action";
+import environment from "../../environment";
+import {useNavigate} from "react-router-dom";
 
-const GroupCard = ({ item }) => {
+const GroupCard = ({ item, setState, state, dispatch , setIsLoading}) => {
+    let navigate = useNavigate()
+  const handleClick = () => {
+    setIsLoading(true)
+    dispatch(
+      doorAction(
+        environment.domain,
+        environment.email,
+        environment.password,
+        item?.id
+      )
+    );
+    setState({
+        isOnGroup: !state?.isOnGroup,
+        groupId: item?.id
+    });
+    setTimeout(()=>{
+        setIsLoading(false)
+        navigate(`/doors`)
+    }, 3000)
+    
+  };
+
   return (
-    <div className="card">
+    <div className="card" onClick={handleClick}>
       <Box className="firts-child">
         <div className="icon-box">
           <GroupIcon />
@@ -41,4 +67,8 @@ const GroupCard = ({ item }) => {
   );
 };
 
-export default GroupCard;
+export default connect((state) => ({
+  user: state.user_reducer,
+  locks: state.locks_reducer,
+  groupLocks: state.door_reducer,
+}))(GroupCard);

@@ -5,11 +5,13 @@ import { useStyle, theme } from './style/style';
 import { ThemeProvider } from "@mui/material/styles";
 
 
+
 function App() {
   const classes = useStyle();
   return (
     <ThemeProvider theme={theme}>
       <Dashboard />
+
     </ThemeProvider>
   );
 }

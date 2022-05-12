@@ -9,3 +9,5 @@ export const GroupService = {
 function getUserGroups(domain,email, password,callBack  ) {
     return apiCall('GET', `${API_URLS.GROUPS.getGroups}`, domain, email, password, null, callBack);
   }
+
+  

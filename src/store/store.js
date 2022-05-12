@@ -3,11 +3,13 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 // import { login } from './reducers/login.reducers';
-import {user, groups} from './reducers'
+import {user, groups, doors, locks} from './reducers'
 
 const reducer = combineReducers({
   user_reducer: user, 
-  groups_reducer: groups
+  groups_reducer: groups,
+  door_reducer:  doors,
+  locks_reducer: locks,
 });
 
 const middleware = [thunk];

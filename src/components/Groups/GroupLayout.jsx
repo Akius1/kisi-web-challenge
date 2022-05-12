@@ -1,38 +1,50 @@
 import React from "react";
-import { Box, TextField, Button, } from "@material-ui/core";
-import "./group.css";
-import { useStyle } from "../../style/style";
-import GroupCard from "./groupCard";
+import { connect } from "react-redux";
 
-const GroupLayout = ({ groups }) => {
-  const classes = useStyle();
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import GroupDoors from "./GroupDoors";
+import Locks from "../Doors/Locks";
+
+const GroupLayout = ({
+  groups,
+  state,
+  setState,
+  groupLocks,
+  isLoading,
+  setIsLoading,
+}) => {
+    
   return (
-    <Box className="groups">
-      <div className="search-wrapper">
-        <TextField
-          placeholder="search groups"
-          variant="outlined"
-          InputProps={{
-            className: classes.input,
-          }}
-        />
-        <Button className={classes.buttons} children="add group" variant="outlined" />
-      </div>
+    // <Router>
+        <Routes>
+        <Route exact path="/" element={ <GroupDoors
+          isLoading={isLoading}
+          groups={groups}
+          setState={setState}
+          state={state}
+          setIsLoading={setIsLoading}
+        />}/>
 
-      <Box className="group-container">
-        {groups?.length &&
-          groups?.map((item) => <GroupCard key={item?.id} item={item}/>)}
-      </Box>
 
-      <Box
-        className="pagination"
-      >
-        <div>Previous Page</div>
-        <div>Page 1 of 1</div>
-        <div>Next Page</div>
-      </Box>
-    </Box>
+      <Route exact path="/doors" element={ <Locks
+          isLoading={isLoading}
+          groupLocks={groupLocks}
+          setState={setState}
+          state={state}
+          setIsLoading={setIsLoading}
+        />} />
+        </Routes>
+      
+    // </Router>
   );
 };
 
-export default GroupLayout;
+export default connect((state) => ({
+  user: state.user_reducer,
+  groupLocks: state.door_reducer,
+}))(GroupLayout);

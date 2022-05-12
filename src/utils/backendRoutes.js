@@ -11,6 +11,12 @@ export const API_URLS = {
 
   GROUPS:{
     getGroups: `${baseUrl}groups`,
+  },
+  LOCKS:{
+    getlocks: `${baseUrl}group_locks`,
+    deleteGroupLock: `${baseUrl}group_locks`,
+    retrieveLocks: `${baseUrl}locks`,
+    addDoor:`${baseUrl}group_locks`
   }
   
 };
