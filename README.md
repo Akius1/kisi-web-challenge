@@ -36,6 +36,6 @@ Your app is ready to be deployed!
 
 Or 
 
-Visit this url: 
+Visit this url: https://kisi-web-app.netlify.app/
 
 

@@ -8,62 +8,64 @@ import { groupAction } from "../../store/actions/groups.action";
 
 import GroupLayout from "../Groups/GroupLayout";
 const Main = ({ user, groups, dispatch }) => {
-    const [state, setState] = useState({
-      isOnGroup: true,
-      groupId: ""
-    });
-    const [isLoading, setIsLoading] = useState(false)
+  const [state, setState] = useState({
+    isOnGroup: true,
+    groupId: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch(
       userAction(environment.domain, environment.email, environment.password)
     );
-     //eslint-disable-next-line react-hooks/exhaustive-deps
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { response } = user;
 
   useEffect(() => {
     if (response.email) {
-        setIsLoading(true)
-        dispatch(
-            groupAction(environment.domain, environment.email, environment.password)
-          );
-        setTimeout(()=>{
-           
-              setIsLoading(false)
-        }, 3000)
-        
-     
+      setIsLoading(true);
+      dispatch(
+        groupAction(environment.domain, environment.email, environment.password)
+      );
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
     }
-     //eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-    // console.log('group', groups);
+  // console.log('group', groups);
 
   return (
     <Box className="main">
       <div className="title-style">
-          {
-              state?.isOnGroup ?  <p className="group-count">
-              Groups <span > {groups?.response?.pagination.count}</span>
-            </p> :
-             <p className="group-count">
-             test 
-           </p>
-          }
-       
-        <p
-         className="group-count-detail"
-        >
+        {state?.isOnGroup ? (
+          <p className="group-count">
+            Groups <span> {groups?.response?.pagination.count}</span>
+          </p>
+        ) : (
+          <p className="group-count">test</p>
+        )}
+
+        <p className="group-count-detail">
           add users to group and assign different access right
         </p>
       </div>
 
-      <GroupLayout groups={groups} state={state}setState= {setState}  isLoading={isLoading} setIsLoading={setIsLoading}/>
+      <GroupLayout
+        groups={groups}
+        state={state}
+        setState={setState}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
     </Box>
   );
 };
-
 
 export default connect((state) => ({
   user: state.user_reducer,
