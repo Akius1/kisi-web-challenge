@@ -22,9 +22,10 @@ import { doorAction } from "../../store/actions/doors.action";
 
   useEffect(()=>{
       dispatch(locksAction(environment.domain, environment.email, environment.password))
+       //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('locks',locks?.response?.data[0]?.placeId , groupLocks, state?.groupId)
+ 
 
   const handleClickOpen = () => {
     setOpen(true);

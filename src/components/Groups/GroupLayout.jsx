@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import GroupDoors from "./GroupDoors";
 import Locks from "../Doors/Locks";
 
 const GroupLayout = ({
-  groups,
   state,
   setState,
   groupLocks,
@@ -14,7 +13,6 @@ const GroupLayout = ({
   setIsLoading,
 }) => {
   return (
-    // <Router>
     <Routes>
       <Route
         exact
@@ -22,14 +20,12 @@ const GroupLayout = ({
         element={
           <GroupDoors
             isLoading={isLoading}
-            //   groups={groups}
             setState={setState}
             state={state}
             setIsLoading={setIsLoading}
           />
         }
       />
-
 
       <Route
         exact
@@ -45,8 +41,6 @@ const GroupLayout = ({
         }
       />
     </Routes>
-
-    // </Router>
   );
 };
 

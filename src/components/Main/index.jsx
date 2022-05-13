@@ -18,6 +18,7 @@ const Main = ({ user, groups, dispatch }) => {
     dispatch(
       userAction(environment.domain, environment.email, environment.password)
     );
+     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { response } = user;
@@ -35,6 +36,7 @@ const Main = ({ user, groups, dispatch }) => {
         
      
     }
+     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
     // console.log('group', groups);
 

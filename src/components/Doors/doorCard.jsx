@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { DoorService } from "../../store/services/door.service";
 import environment from "../../environment";
 import { doorAction } from "../../store/actions/doors.action";
-import CustomizedProgressBars from "../CircularProgressBar";
 
 const DoorCard = ({ item, dispatch, setIsLoading, isLoading, state }) => {
   const deleteGroupDoor = (doorId) => {
@@ -31,9 +30,6 @@ const DoorCard = ({ item, dispatch, setIsLoading, isLoading, state }) => {
 
   return (
     <Box className="right-side">
-      {/* {
-        isLoading ? <CustomizedProgressBars/>:
-        <> */}
       <Box className="door-name">
         <img
           className="door-image"
