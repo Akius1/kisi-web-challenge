@@ -39,3 +39,12 @@ Or
 Visit this url: https://kisi-web-app.netlify.app/
 
 
+### Task: 
+Expectation
+1. Implement assigning and deassign locks to groups
+2. Retrieve a list of groups for the user
+3. Show the list of locks associated with a group.
+4. Implement assigning a new lock to the group
+5. Implement de-assigning an assigned lock of the group
+
+
