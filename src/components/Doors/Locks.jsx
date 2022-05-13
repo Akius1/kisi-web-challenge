@@ -1,27 +1,116 @@
 import React from 'react';
-import { Box, TextField, Button } from "@material-ui/core";
+import { Box} from "@mui/material";
 import "../Groups/group.css";
 import "../Doors/doors.css";
 // import { useStyle } from "../../style/style";
 import DoorCard from "../Doors/doorCard";
 import FormDialog from "../Modal";
 import CustomizedProgressBars from "../CircularProgressBar";
+import Button from "@mui/material/Button";
+import environment from "../../environment";
+import { connect } from "react-redux";
+import { groupAction } from "../../store/actions/groups.action";
+import { Typography } from "@mui/material";
 
-const Locks = ({isLoading, groupLocks, state, setIsLoading}) => {
+const Locks = ({isLoading, groupLocks, state, setIsLoading,  dispatch}) => {
     // const classes = useStyle();
+
+    let groupData =groupLocks?.response?.data;
+
+  let paginationDetail = groupLocks?.response?.pagination;
+  let offSet = (count) => {
+    if (count <= 10) {
+      return 0;
+    } else if (count > 10 && count <= 20) {
+      return 10;
+    } else if (count > 20 && count <= 30) {
+      return 20;
+    }
+  };
+
+  let maxPage = Math.ceil(paginationDetail?.count / 10);
+  let currentPage = Math.floor(1 + paginationDetail?.offset / 10);
+  console.log("page", currentPage);
+
+  const nextPage = () => {
+    setIsLoading(true);
+    dispatch(
+      groupAction(
+        environment.domain,
+        environment.email,
+        environment.password,
+        offSet(paginationDetail?.count)
+      )
+    );
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  };
+
+  const prevPage = () => {
+    setIsLoading(true);
+    dispatch(
+      groupAction(
+        environment.domain,
+        environment.email,
+        environment.password,
+        offSet(paginationDetail?.count) - 10
+      )
+    );
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  };
+
   return (
     <Box className="doors">
       <Box className="left-side">
-        {/* <div class>
+   
+        <Box className='button-wrap'>
+         
+    
 
-              </div> */}
-        <div className="button-wrap">
-          <Button className="text-wrap">General</Button>
-        </div>
+        <Button
+          children="General"
+          variant="text"
+          sx={{
+            textAlign: "center",
+            fontFamily: "Inter, sans-serif",
+            fontStretch: "normal",
+            letterSpacing: "normal",
+            fontSize: "16px",
+            lineHeight: "19px",
+            fontWeight: 400,
+            color: "#191919",
+            display:"flex",
+            justifyContent:"left",
+            padding:"10px",
+            textTransform: "capitalize",
+          }}
+        />
+      
 
-        <div className="button-wrap">
-          <Button className="text-wrap">Doors</Button>
-        </div>
+        
+      <Button
+          children="Doors"
+          variant="contained"
+          sx={{
+            textAlign: "center",
+            fontFamily: "Inter, sans-serif",
+            fontStretch: "normal",
+            letterSpacing: "normal",
+            fontSize: "16px",
+            lineHeight: "19px",
+            fontWeight: 400,
+            color: "#fff",
+            display:"flex",
+            justifyContent:"left",
+            padding:"10px",
+            backgroundColor:"#4a52ff",
+            textTransform: "capitalize"
+          }}
+        />
+        </Box>
       </Box>
       {/* {
        */}
@@ -29,9 +118,9 @@ const Locks = ({isLoading, groupLocks, state, setIsLoading}) => {
         <FormDialog setIsLoading={setIsLoading} state={state}/>
         {isLoading ? (
           <CustomizedProgressBars />
-        ) : groupLocks?.response?.data?.length ? (
+        ) : groupData?.length ? (
           <Box className="doors-container">
-            {groupLocks?.response?.data?.map((item) => (
+            {groupData?.map((item) => (
               <DoorCard
                 key={item?.id}
                 item={item}
@@ -50,12 +139,63 @@ const Locks = ({isLoading, groupLocks, state, setIsLoading}) => {
             <p className="empty-text">You haven't added any door</p>
           </Box>
         )}
-        {groupLocks?.response?.data?.length ? (
-          <Box className="pagination">
-            <div>Previous Page</div>
-            <div>Page 1 of 1</div>
-            <div>Next Page</div>
-          </Box>
+        {groupData?.length ? (
+          <Box className="pagination" sx={{ "& button": { m: 1 } }}>
+          <Button
+            variant="text"
+            disabled={
+              paginationDetail?.count <= 10 || paginationDetail?.offset < 10
+            }
+            sx={{
+              textAlign: "center",
+              fontFamily: "Inter, sans-serif",
+              fontStretch: "normal",
+              letterSpacing: "normal",
+              fontSize: "12px",
+              lineHeight: "18px",
+              fontWeight: 400,
+              textTransform: "none",
+              color: "rgb(74, 82, 255)",
+            }}
+            onClick={prevPage}
+          >
+            Previous Page
+          </Button>
+          <Typography sx={{
+                textAlign: "center",
+                fontFamily: "Inter, sans-serif",
+                fontStretch: "normal",
+                letterSpacing: "normal",
+               color:"#191919",
+               fontSize: "12px",
+               lineHeight: "18px",
+               fontWeight: 400,
+               textTransform: "none",
+          }}>
+            Page {currentPage} of {maxPage}
+          </Typography>
+          <Button
+            disabled={
+              paginationDetail?.count <= 10 ||
+              offSet(paginationDetail?.count) === 0 ||
+              groupLocks?.response?.data?.length < 10
+            }
+            sx={{
+              textAlign: "center",
+              fontFamily: "Inter, sans-serif",
+              fontStretch: "normal",
+              letterSpacing: "normal",
+              fontSize: "12px",
+              lineHeight: "18px",
+              fontWeight: 400,
+              textTransform: "none",
+              color: "rgb(74, 82, 255)",
+            }}
+            onClick={nextPage}
+          >
+            Next Page
+          </Button>
+        </Box>
         ) : (
           ""
         )}
@@ -65,4 +205,6 @@ const Locks = ({isLoading, groupLocks, state, setIsLoading}) => {
   )
 }
 
-export default Locks
+export default connect((state) => ({
+    groups: state.groups_reducer,
+  }))(Locks);

@@ -31,16 +31,12 @@
 
 .button-wrap{
     display: flex;
-    width: 80%;
-    /* margin-left: 20px;
-    margin-right: 20px; */
-    margin-bottom: 12px;
-    min-height: 44px;
-    border-radius: 8px;
-    border: 1px solid blue;
-    flex-direction: unset;
-    -webkit-box-pack: unset;
+    width: 90%;
+
+    /* border: 1px solid red; */
+    flex-direction: column;
     justify-content: center;
+    column-gap: 1rem;
 }
 .text-wrap{
     display: inline-flex;

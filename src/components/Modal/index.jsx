@@ -53,7 +53,7 @@ import { doorAction } from "../../store/actions/doors.action";
 
   return (
     <>
-        <Button className="add-door" variant="outlined"  onClick={handleClickOpen}>
+        <Button className="add-door" variant="outlined"  onClick={handleClickOpen} sx={{textTransform: "capitalize",}}>
         Add Doors
       </Button>
       <Dialog open={open} onClose={handleClose}>

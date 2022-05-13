@@ -6,18 +6,18 @@ import GroupIcon from "@material-ui/icons/Group";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 
 import SidebarLink from "./sidebarlink";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   
   return (
     <div className="sidebar">
-    {/* <nav> */}
-    <Link to={'/'}><SidebarLink text="Home" Icon={HomeIcon}  /></Link>
+    <nav>
+    <NavLink  activeClassName="link-active" className="link" to={'/'}><SidebarLink text="Home" Icon={HomeIcon}  /></NavLink >
      
-     <SidebarLink text="User" Icon={PermIdentityIcon} />
-     <Link to={'/'}> <SidebarLink text="Group" Icon={GroupIcon} /></Link>
-    {/* </nav> */}
+     <NavLink to={'/'} className="link"><SidebarLink text="User" Icon={PermIdentityIcon} /></NavLink>
+     <NavLink activeClassName="link-active"  to={'/'} className="link"> <SidebarLink text="Group" Icon={GroupIcon} /></NavLink >
+    </nav>
       
     </div>
   );

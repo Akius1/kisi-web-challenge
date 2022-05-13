@@ -36,14 +36,14 @@ const Main = ({ user, groups, dispatch }) => {
      
     }
   }, []);
-    console.log('group', groups);
+    // console.log('group', groups);
 
   return (
     <Box className="main">
       <div className="title-style">
           {
               state?.isOnGroup ?  <p className="group-count">
-              Groups <span > {groups?.response?.data?.length}</span>
+              Groups <span > {groups?.response?.pagination.count}</span>
             </p> :
              <p className="group-count">
              test 
@@ -57,7 +57,7 @@ const Main = ({ user, groups, dispatch }) => {
         </p>
       </div>
 
-      <GroupLayout groups={groups?.response?.data} state={state}setState= {setState}  isLoading={isLoading} setIsLoading={setIsLoading}/>
+      <GroupLayout groups={groups} state={state}setState= {setState}  isLoading={isLoading} setIsLoading={setIsLoading}/>
     </Box>
   );
 };

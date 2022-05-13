@@ -1,7 +1,7 @@
 import { groupConstants, namespace } from "../constant/group.constants";
 import { GroupService } from "../services/group.service";
 
-export const groupAction = (domain, email, password) => {
+export const groupAction = (domain, email, password, offset) => {
   const url =GroupService.getUserGroups;
 
  
@@ -11,7 +11,7 @@ export const groupAction = (domain, email, password) => {
         dispatch(success(res));
       };
     // dispatch(request());
-    url(domain, email, password, responses);
+    url(domain, email, password, responses, offset);
   };
 
   // function request() {

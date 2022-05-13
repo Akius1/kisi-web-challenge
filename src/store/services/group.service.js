@@ -6,8 +6,8 @@ export const GroupService = {
 }
 
 
-function getUserGroups(domain,email, password,callBack  ) {
-    return apiCall('GET', `${API_URLS.GROUPS.getGroups}`, domain, email, password, null, callBack);
+function getUserGroups(domain,email, password,callBack , offSet=0 ) {
+    return apiCall('GET', `${API_URLS.GROUPS.getGroups}?query=&limit=10&offset=${offSet}`, domain, email, password, null, callBack);
   }
 
   

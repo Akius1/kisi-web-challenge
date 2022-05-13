@@ -1,12 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GroupDoors from "./GroupDoors";
 import Locks from "../Doors/Locks";
 
@@ -18,28 +13,39 @@ const GroupLayout = ({
   isLoading,
   setIsLoading,
 }) => {
-    
   return (
     // <Router>
-        <Routes>
-        <Route exact path="/" element={ <GroupDoors
-          isLoading={isLoading}
-          groups={groups}
-          setState={setState}
-          state={state}
-          setIsLoading={setIsLoading}
-        />}/>
+    <Routes>
+      <Route
+        exact
+        path="/"
+        element={
+          <GroupDoors
+            isLoading={isLoading}
+            //   groups={groups}
+            setState={setState}
+            state={state}
+            setIsLoading={setIsLoading}
+          />
+        }
+      />
 
 
-      <Route exact path="/doors" element={ <Locks
-          isLoading={isLoading}
-          groupLocks={groupLocks}
-          setState={setState}
-          state={state}
-          setIsLoading={setIsLoading}
-        />} />
-        </Routes>
-      
+      <Route
+        exact
+        path="/doors"
+        element={
+          <Locks
+            isLoading={isLoading}
+            groupLocks={groupLocks}
+            setState={setState}
+            state={state}
+            setIsLoading={setIsLoading}
+          />
+        }
+      />
+    </Routes>
+
     // </Router>
   );
 };
